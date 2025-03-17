@@ -8,7 +8,9 @@ class Player():
 
         self.screen = screen
         self.screen_rect = self.screen.get_rect()
+
     # TODO: придумать реалізацию різних скінів
+
         self.img = pygame.image.load('Img/icon.png')
         #self.img = pygame.transform.scale(self.img,(12, 12))
         self.rect = self.img.get_rect()
@@ -19,7 +21,11 @@ class Player():
 
         self.heal_point = 5
 
-
+    def update(self,rects_enemy):
+        for rect in rects_enemy:
+            if self.rect.colliderect(rect):
+                self.heal_point -= 1
+                print(self.heal_point)
     def output(self):
         """Отрисовка"""
         self.screen.blit(self.img,self.rect)

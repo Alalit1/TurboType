@@ -1,31 +1,24 @@
-import time
-
+import json
 import pygame
-import sys
-import enemy,player
+import manu
 
+# Читання конфігурацій з файлу
+with open('configs.json', 'r') as f:
+    config = json.load(f)
+
+# Доступ до параметрів
+width = config['width']
+height = config['height']
+fullscreen = config['fullscreen']
 
 pygame.init()
 
 run_game = True
 
-wight = 200
-hight = 300
+if fullscreen:
+    screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+else:
+    screen = pygame.display.set_mode((width, height))
 
-screen = pygame.display.set_mode((wight,hight))
-NIP = enemy.Enemy(screen)
-Hero = player.Player(screen)
-FPS = 60
-clock = pygame.time.Clock()
-while run_game:
-
-
-    Hero.output()
-    NIP.output()
-    pygame.display.update()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-
-    clock.tick(FPS)
+manu.main_menu(screen)
 
