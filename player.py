@@ -1,6 +1,6 @@
 import pygame.image
 
-
+"""Гравець"""
 class Player():
     def __init__(self,screen):
 
@@ -11,7 +11,7 @@ class Player():
 
     # TODO: придумать реалізацию різних скінів
 
-        self.img = pygame.image.load('Img/icon.png')
+        self.img = pygame.image.load('Img/Tawer_up.png')
         #self.img = pygame.transform.scale(self.img,(12, 12))
         self.rect = self.img.get_rect()
 

@@ -1,17 +1,21 @@
 import pygame.image
 import random
 
-
+"""Вороги"""
 class Enemy(pygame.sprite.Sprite):
+    daed_slaime = 0
     def __init__(self, screen):
         super().__init__()
+
+
         self.spawned_objects = []
+
         self.screen = screen
         self.screen_rect = self.screen.get_rect()
 
         # TODO: придумать реалізацию різних скінів
 
-        self.image = pygame.image.load('Img/icon.png')
+        self.image = pygame.image.load('Img/Slaime.png')
         self.rect = self.image.get_rect()
 
         # TODO: Придуати реалізацию різних мов для слів
@@ -47,6 +51,9 @@ class Enemy(pygame.sprite.Sprite):
                                           self.screen_rect.x + 625,
                                           self.screen_rect.x + 475)
 
+        pygame.mixer.init()
+        self.sound = pygame.mixer.Sound('Sound/vozdushnyii-shar-vzryiv-odinochnyii-blizkii-rezkii-v-prostranstve.wav')
+
         # TODO: придумать реалізацию випадкового розміщенння в не зони
 
         # Випадково вибираємо сторону, де буде з'являтися об'єкт
@@ -68,6 +75,8 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = 0.2
         self.count = 5
 
+        self.daed_slaime = 0
+
         self.target_rect = (400,300)
         self.velocity = pygame.Vector2(0)
         self.position = (self.rect.x, self.rect.y)
@@ -81,11 +90,11 @@ class Enemy(pygame.sprite.Sprite):
         nearest_target_vec = pygame.Vector2(target_pos) - self.position
         nearest_target_vec.normalize_ip()
 
-
         if self.position != target_pos:
             self.velocity = nearest_target_vec * self.speed
             self.position += self.velocity
             self.rect.center = self.position
+
         self.text_rect.x = self.rect.x + 5
         self.text_rect.y = self.rect.y - 30
 
@@ -101,9 +110,18 @@ class Enemy(pygame.sprite.Sprite):
 
 
             if self.text_print == self.word:
-
+                self.text_print = ""
+                self.sound.play()
+                Enemy.daed_slaime +=1
                 self.kill()
 
+    # @property
+    def get_text_print(self):
+        return self.text_print
+
+    @classmethod
+    def get_daed_slaime(cls):
+        return cls.daed_slaime
     def output(self):
         """Отрисовка"""
 
