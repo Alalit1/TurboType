@@ -50,7 +50,7 @@ def settings (screen):
 
     for x, y, action, img, text in list_button:
         buttons.add(vigets.Button(x=x, y=y, screen=screen, action=action,image = img,text=text))
-
+    #ff
     running = True
     while running:
         screen.fill((30, 30, 30))  # Очищення екрану
